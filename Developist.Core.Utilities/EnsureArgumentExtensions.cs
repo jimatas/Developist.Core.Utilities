@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 namespace Developist.Core.Utilities
 {
     /// <summary>
-    /// Defines common guard clauses, which are implemented as extension methods on the <see cref="IEnsureArgument"/> type. 
+    /// Defines commonly used guard clauses, which are implemented as extension methods on the <see cref="IEnsureArgument"/> type. 
     /// </summary>
     public static class EnsureArgumentExtensions
     {
@@ -114,6 +114,49 @@ namespace Developist.Core.Utilities
             ensureArgument.NotNull(value, paramName, message);
 
             if (value.Length == 0)
+            {
+                throw new ArgumentException(message, paramName);
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>, or <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
+        /// Otherwise, simply returns <paramref name="value"/>.
+        /// </summary>
+        /// <param name="ensureArgument"></param>
+        /// <param name="value">The value to check.</param>
+        /// <param name="paramName">The parameter name to use for the exception.</param>
+        /// <returns>The value, if it is not <see langword="null"/> or empty.</returns>
+        [DebuggerHidden]
+        public static Guid? NotNullOrEmpty(this IEnsureArgument ensureArgument, Guid? value, string paramName)
+        {
+            ensureArgument.NotNull(value, paramName);
+
+            if (value == Guid.Empty)
+            {
+                throw new ArgumentException(message: "Value cannot be empty.", paramName);
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>, or <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
+        /// Otherwise, simply returns <paramref name="value"/>.
+        /// </summary>
+        /// <param name="ensureArgument"></param>
+        /// <param name="value">The value to check.</param>
+        /// <param name="paramName">The parameter name to use for the exception.</param>
+        /// <param name="message">The custom message to use for the exception.</param>
+        /// <returns>The value, if it is not <see langword="null"/> or empty.</returns>
+        [DebuggerHidden]
+        public static Guid? NotNullOrEmpty(this IEnsureArgument ensureArgument, Guid? value, string paramName, string message)
+        {
+            ensureArgument.NotNull(value, paramName, message);
+
+            if (value == Guid.Empty)
             {
                 throw new ArgumentException(message, paramName);
             }
