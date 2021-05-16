@@ -9,6 +9,34 @@ namespace Developist.Core.Utilities.Tests
     public class NullConditionalTests
     {
         [TestMethod]
+        public void IfNotNull_CalledOnNullGivenExpressionSettingVariable_DoesNotSetVariable()
+        {
+            // Arrange
+            object target = null;
+            var called = false;
+
+            // Act
+            target.IfNotNull(_ => called = true);
+
+            // Assert
+            Assert.IsFalse(called);
+        }
+
+        [TestMethod]
+        public void IfNotNull_CalledOnNonNullGivenExpressionSettingVariable_SetsVariable()
+        {
+            // Arrange
+            object target = new object();
+            var called = false;
+
+            // Act
+            target.IfNotNull(_ => called = true);
+
+            // Assert
+            Assert.IsTrue(called);
+        }
+
+        [TestMethod]
         public void IfNotNull_CalledOnNullGivenExpressionReturningNewObject_ReturnsNull()
         {
             // Arrange
