@@ -1,11 +1,11 @@
 
 # Developist.Core.Utilities
 
-Meant as a collection of general utilities that are usable in .NET 5.0 projects. For now, precondition checking in the form of guard clauses is the main functionality provided.
+A collection of general utilities that are usable in .NET 5.0 projects. For now, the main functionality provided consists of a standard set of guard clauses for the purpose of precondition checking.
 
 ## Ensure.Argument
 
-Guard clauses are implemented as extension methods on the `IEnsureArgument` interface. An instance of a class that implements that interface is exposed through the static read-only `Argument` field of the static `Ensure` class, allowing for the following syntax when calling the guard clauses.
+The guard clauses are implemented as extension methods on the `IEnsureArgument` interface. An instance of a class that implements that interface is exposed through the static read-only `Argument` field of the static `Ensure` class, allowing for the following syntax when calling the guard clauses.
 
 ```csharp
 Ensure.Argument.NotNull(aParameter, nameof(aParameter));
@@ -18,7 +18,7 @@ The previous example shows some of the commonly used guard clauses that are prov
 
 ## Examples
 
-Sample guard clauses as precondition checks inside a method.
+Sample precondition checks using guard clauses inside a method.
 
 ```csharp
 public void SomeSampleMethod(string name, int age)
@@ -40,4 +40,4 @@ public SomeSampleClass(SomeSampleDependency arg)
 }
  ```
  
-Note that all the built-in guard clauses will return the supplied value if the check succeeds (and an exception is not thrown).
+Note that all the built-in guard clauses will return the supplied value if the check succeeds and an exception is not thrown.
