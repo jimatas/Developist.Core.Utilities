@@ -1,7 +1,7 @@
 
 # Developist.Core.Utilities
 
-A collection of general utilities that are usable in .NET 5.0 projects. For now, the main functionality provided consists of a standard set of guard clauses for the purpose of precondition checking.
+A collection of general utilities that are usable in .NET 5.0 projects. For now, the main functionality provided consists of a standard set of guard clauses for the purpose of encorcing preconditions.
 
 ## Ensure.Argument
 
