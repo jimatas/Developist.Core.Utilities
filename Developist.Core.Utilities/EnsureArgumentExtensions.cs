@@ -53,7 +53,7 @@ namespace Developist.Core.Utilities
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
         /// <param name="ensureArgument"></param>
-        /// <param name="parameter">An expression that evaluates to the value to check.</param>
+        /// <param name="parameter">An expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value, if it is not <see langword="null"/>.</returns>
         [DebuggerHidden]
         public static T NotNull<T>(this IEnsureArgument ensureArgument, Expression<Func<T>> parameter)
@@ -67,13 +67,13 @@ namespace Developist.Core.Utilities
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
         /// <param name="ensureArgument"></param>
-        /// <param name="parameter">An expression that evaluates to the value to check.</param>
+        /// <param name="parameter">An expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value, if it is not <see langword="null"/>.</returns>
         [DebuggerHidden]
         public static T NotNull<T>(this IEnsureArgument ensureArgument, Expression<Func<T>> parameter, string message)
         {
-            return ensureArgument.NotNull(parameter.Compile().Invoke(), (parameter.Body as MemberExpression)?.Member.Name, message);
+            return ensureArgument.NotNull(parameter.GetValue(), parameter.GetName(), message);
         }
         #endregion
 
@@ -389,6 +389,16 @@ namespace Developist.Core.Utilities
             }
 
             return value;
+        }
+        #endregion
+
+        #region Helpers
+        private static T GetValue<T>(this Expression<Func<T>> expression) => expression.Compile().Invoke();
+
+        private static string GetName<T>(this Expression<Func<T>> expression)
+        {
+            // Handles a potentially boxed value produced by Expression.Convert()
+            return (expression.Body as MemberExpression ?? (expression.Body as UnaryExpression)?.Operand as MemberExpression)?.Member.Name;
         }
         #endregion
     }

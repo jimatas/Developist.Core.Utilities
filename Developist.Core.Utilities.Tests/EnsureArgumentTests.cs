@@ -98,6 +98,20 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
+        public void NotNull_GivenExpressionEvaluatingToBoxedNull_ThrowsArgumentNullException()
+        {
+            // Arrange
+            int? value = null;
+
+            // Act
+            void action() => Ensure.Argument.NotNull(() => value);
+
+            // Assert
+            var exception = Assert.ThrowsException<ArgumentNullException>(action);
+            Assert.AreEqual(nameof(value), exception.ParamName);
+        }
+
+        [TestMethod]
         public void NotNull_GivenExpressionEvaluatingToNull_ThrowsArgumentNullExceptionWithProvidedMessage()
         {
             // Arrange
