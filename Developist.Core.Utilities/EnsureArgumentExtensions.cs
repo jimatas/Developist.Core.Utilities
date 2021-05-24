@@ -303,7 +303,7 @@ namespace Developist.Core.Utilities
         [DebuggerHidden]
         public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, T value, string paramName, T? lowerBound = null, T? upperBound = null) where T : struct, IComparable<T>
         {
-            return ensureArgument.NotOutOfRange(value, paramName, message: "Value is out of range.", lowerBound, upperBound);
+            return ensureArgument.NotOutOfRange(value, paramName, message: GenerateMessage<T>(lowerBound, upperBound), lowerBound, upperBound);
         }
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace Developist.Core.Utilities
         [DebuggerHidden]
         public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, T value, string paramName, T lowerBound = null, T upperBound = null) where T : class, IComparable<T>
         {
-            return ensureArgument.NotOutOfRange(value, paramName, message: "Value is out of range.", lowerBound, upperBound);
+            return ensureArgument.NotOutOfRange(value, paramName, message: GenerateMessage(lowerBound, upperBound), lowerBound, upperBound);
         }
 
         /// <summary>
@@ -369,6 +369,30 @@ namespace Developist.Core.Utilities
             }
 
             return value;
+        }
+
+        /// <summary>
+        /// Generates a default message for the <see cref="ArgumentOutOfRangeException"/>, incorporating the specified parameters.
+        /// </summary>
+        private static string GenerateMessage<T>(IComparable<T> lowerBound, IComparable<T> upperBound)
+        {
+            var message = "Value cannot be";
+            if (lowerBound is not null)
+            {
+                message += $" less than {lowerBound}";
+            }
+
+            if (upperBound is not null)
+            {
+                if (lowerBound is not null)
+                {
+                    message += " or";
+                }
+                message += $" greater than {upperBound}";
+            }
+            message += ".";
+
+            return message;
         }
 
         /// <summary>

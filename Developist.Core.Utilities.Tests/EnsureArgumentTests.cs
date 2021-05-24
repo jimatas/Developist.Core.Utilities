@@ -127,6 +127,19 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
+        public void NotNull_GivenNullStringAndParamName_AppendsParamNameToMessage()
+        {
+            // Arrange
+            string value = null;
+
+            // Act
+            var exception = Assert.ThrowsException<ArgumentNullException>(() => Ensure.Argument.NotNull(value, "<ParameterName>"));
+
+            // Assert
+            Assert.IsTrue(exception.Message.Contains("<ParameterName>"));
+        }
+
+        [TestMethod]
         public void NotNullOrEmpty_GivenNullString_ThrowsArgumentNullExceptionWithExpectedMessage()
         {
             // Arrange
@@ -344,16 +357,45 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
-        public void NotNull_GivenNullStringAndParamName_AppendsParamNameToMessage()
+        public void NotOutOfRange_GivenNegativeValueAndLowerBound_ThrowsArgumentOutOfRangeException()
         {
             // Arrange
-            string value = null;
+            var value = -1;
 
             // Act
-            var exception = Assert.ThrowsException<ArgumentNullException>(() => Ensure.Argument.NotNull(value, "<ParameterName>"));
+            void action() => Ensure.Argument.NotOutOfRange(value, nameof(value), lowerBound: 0);
 
             // Assert
-            Assert.IsTrue(exception.Message.Contains("<ParameterName>"));
+            var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual($"Value cannot be less than 0. (Parameter '{nameof(value)}')\r\nActual value was -1.", exception.Message);
+        }
+
+        [TestMethod]
+        public void NotOutOfRange_GivenTooLargeValueAndUpperBound_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            var value = 11;
+
+            // Act
+            void action() => Ensure.Argument.NotOutOfRange(value, nameof(value), upperBound: 10);
+
+            // Assert
+            var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual($"Value cannot be greater than 10. (Parameter '{nameof(value)}')\r\nActual value was 11.", exception.Message);
+        }
+
+        [TestMethod]
+        public void NotOutOfRange_GivenNegativeValueAndBothBounds_ThrowsArgumentOutOfRangeException()
+        {
+            // Arrange
+            var value = -1;
+
+            // Act
+            void action() => Ensure.Argument.NotOutOfRange(value, nameof(value), lowerBound: 0, upperBound: 10);
+
+            // Assert
+            var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
+            Assert.AreEqual($"Value cannot be less than 0 or greater than 10. (Parameter '{nameof(value)}')\r\nActual value was -1.", exception.Message);
         }
 
         [TestMethod]
