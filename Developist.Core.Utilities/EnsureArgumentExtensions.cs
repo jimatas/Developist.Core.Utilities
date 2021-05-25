@@ -281,7 +281,7 @@ namespace Developist.Core.Utilities
         /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
         /// <returns>The supplied value, if it is within bounds.</returns>
         [DebuggerHidden]
-        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, T value, string paramName, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
+        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, IComparable<T> value, string paramName, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
             return ensureArgument.NotOutOfRange(value, paramName, DefaultMessage(), lowerBound, upperBound);
 
@@ -321,15 +321,15 @@ namespace Developist.Core.Utilities
         /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
         /// <returns>The supplied value, if it is within bounds.</returns>
         [DebuggerHidden]
-        public static T NotOutOfRange<T>(this IEnsureArgument _, T value, string paramName, string message, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
+        public static T NotOutOfRange<T>(this IEnsureArgument _, IComparable<T> value, string paramName, string message, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
-            if ((lowerBound is not null && Comparer<T>.Default.Compare(value, (T)lowerBound) < 0) ||
-                (upperBound is not null && Comparer<T>.Default.Compare(value, (T)upperBound) > 0))
+            if ((lowerBound is not null && Comparer<T>.Default.Compare((T)value, (T)lowerBound) < 0) ||
+                (upperBound is not null && Comparer<T>.Default.Compare((T)value, (T)upperBound) > 0))
             {
                 throw new ArgumentOutOfRangeException(paramName, value, message);
             }
 
-            return value;
+            return (T)value;
         }
 
         /// <summary>

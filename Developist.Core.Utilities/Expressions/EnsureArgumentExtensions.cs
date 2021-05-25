@@ -209,7 +209,7 @@ namespace Developist.Core.Utilities
         /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
         /// <returns>The value returned by the lambda expression, if it is within bounds.</returns>
         [DebuggerHidden]
-        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, Expression<Func<T>> argument, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
+        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, Expression<Func<IComparable<T>>> argument, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
             return ensureArgument.NotOutOfRange(argument.GetValue(), argument.GetName(), lowerBound, upperBound);
         }
@@ -226,7 +226,7 @@ namespace Developist.Core.Utilities
         /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
         /// <returns>The value returned by the lambda expression, if it is within bounds.</returns>
         [DebuggerHidden]
-        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, Expression<Func<T>> argument, string message, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
+        public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, Expression<Func<IComparable<T>>> argument, string message, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
             return ensureArgument.NotOutOfRange(argument.GetValue(), argument.GetName(), message, lowerBound, upperBound);
         }
