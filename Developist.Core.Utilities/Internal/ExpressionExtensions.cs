@@ -16,7 +16,7 @@ namespace Developist.Core.Utilities
         /// <returns>The name of the field or property that is being accessed.</returns>
         public static string GetName<T>(this Expression<Func<T>> expression)
         {
-            // Handles potentially boxed values produced by Expression.Convert()
+            // Handle potentially boxed values produced by Expression.Convert()
             return (expression.Body as MemberExpression ?? (expression.Body as UnaryExpression)?.Operand as MemberExpression)?.Member.Name;
         }
 
