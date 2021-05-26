@@ -59,7 +59,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual(message, exception.Message.UntilFirstPeriod(includePeriod: true));
+            Assert.AreEqual($"{message} (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -123,20 +123,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual(message, exception.Message.UntilFirstPeriod(includePeriod: true));
-        }
-
-        [TestMethod]
-        public void NotNull_GivenNullStringAndParamName_AppendsParamNameToMessage()
-        {
-            // Arrange
-            string value = null;
-
-            // Act
-            var exception = Assert.ThrowsException<ArgumentNullException>(() => Ensure.Argument.NotNull(value, "<ParameterName>"));
-
-            // Assert
-            Assert.IsTrue(exception.Message.Contains("<ParameterName>"));
+            Assert.AreEqual($"{message} (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -150,7 +137,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual("Value cannot be null", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be null. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -164,7 +151,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentException>(action);
-            Assert.AreEqual("Value cannot be empty", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be empty. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -191,7 +178,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual("Value cannot be null", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be null. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -205,7 +192,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentException>(action);
-            Assert.AreEqual("Value cannot be empty", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be empty. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -222,6 +209,20 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
+        public void NotNullOrEmpty_GivenNullList_ThrowsArgumentNullExceptionWithExpectedMessage()
+        {
+            // Arrange
+            IList<object> value = null;
+
+            // Act
+            void action() => Ensure.Argument.NotNullOrEmpty(value, nameof(value));
+
+            // Assert
+            var exception = Assert.ThrowsException<ArgumentNullException>(action);
+            Assert.AreEqual($"Value cannot be null. (Parameter '{nameof(value)}')", exception.Message);
+        }
+
+        [TestMethod]
         public void NotNullOrEmpty_GivenNullEnumerable_ThrowsArgumentNullExceptionWithExpectedMessage()
         {
             // Arrange
@@ -232,7 +233,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual("Value cannot be null", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be null. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -246,7 +247,21 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentException>(action);
-            Assert.AreEqual("Value cannot be empty", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be empty. (Parameter '{nameof(value)}')", exception.Message);
+        }
+
+        [TestMethod]
+        public void NotNullOrEmpty_GivenEmptyList_ThrowsArgumentExceptionWithExpectedMessage()
+        {
+            // Arrange
+            IList<object> value = new List<object>();
+
+            // Act
+            void action() => Ensure.Argument.NotNullOrEmpty(value, nameof(value));
+
+            // Assert
+            var exception = Assert.ThrowsException<ArgumentException>(action);
+            Assert.AreEqual($"Value cannot be empty. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -263,6 +278,19 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
+        public void NotNullOrEmpty_GivenNonEmptyList_ReturnsList()
+        {
+            // Arrange
+            IList<object> value = new List<object>(new[] { new object(), new object() });
+
+            // Act
+            IList<object> returnedValue = Ensure.Argument.NotNullOrEmpty<IList<object>, object>(value, nameof(value));
+
+            // Assert
+            Assert.AreEqual(value, returnedValue);
+        }
+
+        [TestMethod]
         public void NotNullOrWhiteSpace_GivenNullString_ThrowsArgumentNullExceptionWithExpectedMessage()
         {
             // Arrange
@@ -273,7 +301,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentNullException>(action);
-            Assert.AreEqual("Value cannot be null", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be null. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -287,7 +315,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentException>(action);
-            Assert.AreEqual("Value cannot be empty", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be empty. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
@@ -301,7 +329,7 @@ namespace Developist.Core.Utilities.Tests
 
             // Assert
             var exception = Assert.ThrowsException<ArgumentException>(action);
-            Assert.AreEqual("Value cannot be whitespace", exception.Message.UntilFirstPeriod());
+            Assert.AreEqual($"Value cannot be whitespace. (Parameter '{nameof(value)}')", exception.Message);
         }
 
         [TestMethod]
