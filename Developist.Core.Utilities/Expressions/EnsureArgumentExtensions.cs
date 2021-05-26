@@ -17,7 +17,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/>.</returns>
         [DebuggerHidden]
@@ -31,7 +31,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/>.</returns>
@@ -48,7 +48,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
@@ -62,7 +62,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
@@ -77,7 +77,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
@@ -91,7 +91,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
@@ -107,7 +107,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
@@ -122,7 +122,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
@@ -137,15 +137,15 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty. 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <typeparam name="TEnumerable">The type of the value to check.</typeparam>
+        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
-        public static TEnumerable NotNullOrEmpty<TEnumerable, T>(this IEnsureArgument ensureArgument, Expression<Func<TEnumerable>> argument) where TEnumerable : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, Expression<Func<TCollection>> argument) where TCollection : IEnumerable<T>
         {
-            return ensureArgument.NotNullOrEmpty<TEnumerable, T>(argument.GetValue(), argument.GetName());
+            return ensureArgument.NotNullOrEmpty<TCollection, T>(argument.GetValue(), argument.GetName());
         }
 
         /// <summary>
@@ -153,16 +153,16 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty. 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <typeparam name="TEnumerable">The type of the value to check.</typeparam>
+        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
-        public static TEnumerable NotNullOrEmpty<TEnumerable, T>(this IEnsureArgument ensureArgument, Expression<Func<TEnumerable>> argument, string message) where TEnumerable : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, Expression<Func<TCollection>> argument, string message) where TCollection : IEnumerable<T>
         {
-            return ensureArgument.NotNullOrEmpty<TEnumerable, T>(argument.GetValue(), argument.GetName(), message);
+            return ensureArgument.NotNullOrEmpty<TCollection, T>(argument.GetValue(), argument.GetName(), message);
         }
         #endregion
 
@@ -172,7 +172,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/>, empty or whitespace.</returns>
         [DebuggerHidden]
@@ -186,7 +186,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
         /// Otherwise, simply returns the value.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The value returned by the lambda expression, if it is not <see langword="null"/>, empty or whitespace.</returns>
@@ -203,7 +203,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="lowerBound">The inclusive lower bound of the range; <see langword="null"/> for unbounded.</param>
         /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
@@ -219,7 +219,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <param name="lowerBound">The inclusive lower bound of the range; <see langword="null"/> for unbounded.</param>
@@ -236,7 +236,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns the value.
         /// </summary>
         /// <typeparam name="TEnum">The enum type to check for membership.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="argument">A lambda expression that evaluates to the value to check. The parameter name to use for the exception will be derived from the expression body.</param>
         /// <returns>The value returned by the lambda expression, if it is a member of the specified enum.</returns>
         [DebuggerHidden]

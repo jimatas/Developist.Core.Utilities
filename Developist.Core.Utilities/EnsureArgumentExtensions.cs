@@ -20,7 +20,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/>.</returns>
@@ -53,7 +53,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
@@ -75,7 +75,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="message">The custom message to use for the exception.</param>
@@ -98,7 +98,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
@@ -120,7 +120,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="message">The custom message to use for the exception.</param>
@@ -144,7 +144,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
@@ -160,7 +160,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="message">The custom message to use for the exception.</param>
@@ -176,14 +176,14 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty. 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <typeparam name="TEnumerable">The type of the value to check.</typeparam>
+        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
-        public static TEnumerable NotNullOrEmpty<TEnumerable, T>(this IEnsureArgument ensureArgument, TEnumerable value, string paramName) where TEnumerable : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName) where TCollection : IEnumerable<T>
         {
             ensureArgument.NotNull(value, paramName);
 
@@ -200,15 +200,15 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty. 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <typeparam name="TEnumerable">The type of the value to check.</typeparam>
+        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
         /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="message">The custom message to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
         [DebuggerHidden]
-        public static TEnumerable NotNullOrEmpty<TEnumerable, T>(this IEnsureArgument ensureArgument, TEnumerable value, string paramName, string message) where TEnumerable : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName, string message) where TCollection : IEnumerable<T>
         {
             ensureArgument.NotNull(value, paramName, message);
 
@@ -227,7 +227,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <returns>The supplied value, if it is not <see langword="null"/>, empty or whitespace.</returns>
@@ -249,7 +249,7 @@ namespace Developist.Core.Utilities
         /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="message">The custom message to use for the exception.</param>
@@ -274,7 +274,7 @@ namespace Developist.Core.Utilities
         /// Otherwise, simply returns <paramref name="value"/>.
         /// </summary>
         /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method is being defined on.</param>
+        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
         /// <param name="value">The value to check.</param>
         /// <param name="paramName">The parameter name to use for the exception.</param>
         /// <param name="lowerBound">The inclusive lower bound of the range; <see langword="null"/> for unbounded.</param>
