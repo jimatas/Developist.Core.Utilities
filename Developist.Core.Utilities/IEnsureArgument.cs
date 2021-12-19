@@ -3,9 +3,6 @@
 
 namespace Developist.Core.Utilities
 {
-    /// <summary>
-    /// Provides the mechanism for defining guard clauses as extension methods.
-    /// </summary>
     public interface IEnsureArgument
     {
     }

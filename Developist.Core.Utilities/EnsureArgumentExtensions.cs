@@ -9,55 +9,27 @@ using System.Linq;
 
 namespace Developist.Core.Utilities
 {
-    /// <summary>
-    /// Defines commonly used guard clauses, which are implemented as extension methods on the <see cref="IEnsureArgument"/> type. 
-    /// </summary>
+    [DebuggerStepThrough]
     public static partial class EnsureArgumentExtensions
     {
         #region NotNull
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/>.</returns>
-        [DebuggerHidden]
         public static T NotNull<T>(this IEnsureArgument ensureArgument, T value, string paramName)
         {
             return ensureArgument.NotNull(value, paramName, message: "Value cannot be null.");
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="_"></param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/>.</returns>
-        [DebuggerHidden]
         public static T NotNull<T>(this IEnsureArgument _, T value, string paramName, string message)
         {
-            return value ?? throw new ArgumentNullException(paramName, message);
+            if (value == null)
+            {
+                throw new ArgumentNullException(paramName, message);
+            }
+
+            return value;
         }
         #endregion
 
         #region NotNullOrEmpty
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static string NotNullOrEmpty(this IEnsureArgument ensureArgument, string value, string paramName)
         {
             ensureArgument.NotNull(value, paramName);
@@ -70,17 +42,6 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>. 
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>). 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static string NotNullOrEmpty(this IEnsureArgument ensureArgument, string value, string paramName, string message)
         {
             ensureArgument.NotNull(value, paramName, message);
@@ -93,16 +54,6 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static Guid? NotNullOrEmpty(this IEnsureArgument ensureArgument, Guid? value, string paramName)
         {
             ensureArgument.NotNull(value, paramName);
@@ -115,17 +66,6 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="Guid.Empty"/>). 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static Guid? NotNullOrEmpty(this IEnsureArgument ensureArgument, Guid? value, string paramName, string message)
         {
             ensureArgument.NotNull(value, paramName, message);
@@ -138,52 +78,18 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static IEnumerable<T> NotNullOrEmpty<T>(this IEnsureArgument ensureArgument, IEnumerable<T> value, string paramName)
         {
             return ensureArgument.NotNullOrEmpty<IEnumerable<T>, T>(value, paramName);
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
         public static IEnumerable<T> NotNullOrEmpty<T>(this IEnsureArgument ensureArgument, IEnumerable<T> value, string paramName, string message)
         {
             return ensureArgument.NotNullOrEmpty<IEnumerable<T>, T>(value, paramName, message);
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>. 
-        /// Throws <see cref="ArgumentException"/> if it is empty. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
-        /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
-        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName) where TCollection : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName)
+            where TCollection : IEnumerable<T>
         {
             ensureArgument.NotNull(value, paramName);
 
@@ -195,20 +101,8 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>. 
-        /// Throws <see cref="ArgumentException"/> if it is empty. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="TCollection">The type of the value to check.</typeparam>
-        /// <typeparam name="T">The element type of the collection.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/> or empty.</returns>
-        [DebuggerHidden]
-        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName, string message) where TCollection : IEnumerable<T>
+        public static TCollection NotNullOrEmpty<TCollection, T>(this IEnsureArgument ensureArgument, TCollection value, string paramName, string message)
+            where TCollection : IEnumerable<T>
         {
             ensureArgument.NotNull(value, paramName, message);
 
@@ -222,16 +116,6 @@ namespace Developist.Core.Utilities
         #endregion
 
         #region NotNullOrWhiteSpace
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/>, empty or whitespace.</returns>
-        [DebuggerHidden]
         public static string NotNullOrWhiteSpace(this IEnsureArgument ensureArgument, string value, string paramName)
         {
             ensureArgument.NotNullOrEmpty(value, paramName);
@@ -244,17 +128,6 @@ namespace Developist.Core.Utilities
             return value;
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
-        /// Throws <see cref="ArgumentException"/> if it is empty (<see cref="string.Empty"/>) or consists entirely of whitespace. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <returns>The supplied value, if it is not <see langword="null"/>, empty or whitespace.</returns>
-        [DebuggerHidden]
         public static string NotNullOrWhiteSpace(this IEnsureArgument ensureArgument, string value, string paramName, string message)
         {
             ensureArgument.NotNullOrEmpty(value, paramName, message);
@@ -269,34 +142,21 @@ namespace Developist.Core.Utilities
         #endregion
 
         #region NotOutOfRange
-        /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="value"/> is less than <paramref name="lowerBound"/> or greater than <paramref name="upperBound"/>. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance this method will be called on.</param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="lowerBound">The inclusive lower bound of the range; <see langword="null"/> for unbounded.</param>
-        /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
-        /// <returns>The supplied value, if it is within bounds.</returns>
-        [DebuggerHidden]
         public static T NotOutOfRange<T>(this IEnsureArgument ensureArgument, IComparable<T> value, string paramName, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
             return ensureArgument.NotOutOfRange(value, paramName, DefaultMessage(), lowerBound, upperBound);
 
-            // Generate a default message to use for the exception, incorporating the boundary parameters.
             string DefaultMessage()
             {
                 var message = "Value cannot be";
-                if (lowerBound is not null)
+                if (lowerBound != null)
                 {
                     message += $" less than {lowerBound}";
                 }
 
-                if (upperBound is not null)
+                if (upperBound != null)
                 {
-                    if (lowerBound is not null)
+                    if (lowerBound != null)
                     {
                         message += " or";
                     }
@@ -308,23 +168,10 @@ namespace Developist.Core.Utilities
             }
         }
 
-        /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="value"/> is less than <paramref name="lowerBound"/> or greater than <paramref name="upperBound"/>. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the value to check.</typeparam>
-        /// <param name="_"></param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <param name="message">The custom message to use for the exception.</param>
-        /// <param name="lowerBound">The inclusive lower bound of the range; <see langword="null"/> for unbounded.</param>
-        /// <param name="upperBound">The inclusive upper bound of the range; <see langword="null"/> for unbounded.</param>
-        /// <returns>The supplied value, if it is within bounds.</returns>
-        [DebuggerHidden]
         public static T NotOutOfRange<T>(this IEnsureArgument _, IComparable<T> value, string paramName, string message, IComparable<T> lowerBound = null, IComparable<T> upperBound = null)
         {
-            if ((lowerBound is not null && Comparer<T>.Default.Compare((T)value, (T)lowerBound) < 0) ||
-                (upperBound is not null && Comparer<T>.Default.Compare((T)value, (T)upperBound) > 0))
+            if ((lowerBound != null && Comparer<T>.Default.Compare((T)value, (T)lowerBound) < 0) ||
+                (upperBound != null && Comparer<T>.Default.Compare((T)value, (T)upperBound) > 0))
             {
                 throw new ArgumentOutOfRangeException(paramName, value, message);
             }
@@ -332,19 +179,10 @@ namespace Developist.Core.Utilities
             return (T)value;
         }
 
-        /// <summary>
-        /// Throws <see cref="InvalidEnumArgumentException"/> if <paramref name="value"/> is not a member of the enum specified in the generic type parameter. 
-        /// Otherwise, simply returns <paramref name="value"/>.
-        /// </summary>
-        /// <typeparam name="TEnum">The enum type to check for membership.</typeparam>
-        /// <param name="_"></param>
-        /// <param name="value">The value to check.</param>
-        /// <param name="paramName">The parameter name to use for the exception.</param>
-        /// <returns>The supplied value, if it is a member of the specified enum.</returns>
-        [DebuggerHidden]
-        public static TEnum NotOutOfRange<TEnum>(this IEnsureArgument _, TEnum value, string paramName) where TEnum : struct, Enum
+        public static TEnum NotOutOfRange<TEnum>(this IEnsureArgument _, TEnum value, string paramName)
+            where TEnum : struct, Enum
         {
-            if (!Enum.IsDefined(value))
+            if (!Enum.IsDefined(typeof(TEnum), value))
             {
                 throw new InvalidEnumArgumentException(paramName, Convert.ToInt32(value), typeof(TEnum));
             }

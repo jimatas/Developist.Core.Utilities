@@ -1,6 +1,8 @@
 ﻿// Copyright (c) 2021 Jim Atas. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for details.
 
+using Developist.Core.Utilities.Tests.Fixture;
+
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System;
@@ -13,7 +15,7 @@ namespace Developist.Core.Utilities.Tests
     public class EnsureArgumentTests
     {
         [TestMethod]
-        public void NotNull_GivenNonNullValues_ReturnsValues()
+        public void NotNull_GivenNonNullValue_ReturnsValue()
         {
             // Arrange
             var nonNullValues = new[]
@@ -63,7 +65,7 @@ namespace Developist.Core.Utilities.Tests
         }
 
         [TestMethod]
-        public void NotNull_GivenExpressionsEvaluatingToNonNullValue_ReturnsValues()
+        public void NotNull_GivenExpressionEvaluatingToNonNullValue_ReturnsValue()
         {
             // Arrange
             var nonNullValues = new[]
