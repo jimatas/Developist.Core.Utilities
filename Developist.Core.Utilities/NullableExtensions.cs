@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) 2022 Jim Atas. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for details.
+
+using System;
 
 namespace Developist.Core.Utilities
 {
