@@ -1,0 +1,77 @@
+﻿// Copyright (c) 2022 Jim Atas. All rights reserved.
+// Licensed under the MIT License. See License.txt in the project root for details.
+
+using System;
+using System.Threading;
+#if NETSTANDARD2_1_OR_GREATER
+using System.Threading.Tasks;
+#endif
+
+namespace Developist.Core.Utilities
+{
+    public static class SemaphoreSlimExtensions
+    {
+        public static IDisposable WaitAndRelease(this SemaphoreSlim semaphore)
+        {
+            semaphore.Wait();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static IDisposable WaitAndRelease(this SemaphoreSlim semaphore, int millisecondsTimeout)
+        {
+            semaphore.Wait(millisecondsTimeout);
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static IDisposable WaitAndRelease(this SemaphoreSlim semaphore, TimeSpan timeout)
+        {
+            semaphore.Wait(timeout);
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+#if NETSTANDARD2_1_OR_GREATER
+        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, CancellationToken cancellationToken = default)
+        {
+            semaphore.WaitAsync(cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, int millisecondsTimeout, CancellationToken cancellationToken = default)
+        {
+            semaphore.WaitAsync(millisecondsTimeout, cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, TimeSpan timeout, CancellationToken cancellationToken = default)
+        {
+            semaphore.WaitAsync(timeout, cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+#endif
+        
+        private class SemaphoreSlimReleaser :
+#if NETSTANDARD2_1_OR_GREATER
+            AsyncDisposableBase
+#else
+            DisposableBase
+#endif
+        {
+            private readonly SemaphoreSlim semaphore;
+            public SemaphoreSlimReleaser(SemaphoreSlim semaphore) => this.semaphore = semaphore;
+
+            protected override void ReleaseManagedResources()
+            {
+                semaphore.Release();
+                base.ReleaseManagedResources();
+            }
+
+#if NETSTANDARD2_1_OR_GREATER
+            protected override ValueTask ReleaseManagedResourcesAsync()
+            {
+                semaphore.Release();
+                return base.ReleaseManagedResourcesAsync();
+            }
+#endif
+        }
+    }
+}
