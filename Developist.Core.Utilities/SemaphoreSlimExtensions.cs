@@ -30,25 +30,25 @@ namespace Developist.Core.Utilities
         }
 
 #if NETSTANDARD2_1_OR_GREATER
-        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, CancellationToken cancellationToken = default)
+        public static async Task<IAsyncDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, CancellationToken cancellationToken = default)
         {
-            semaphore.WaitAsync(cancellationToken).WithoutCapturingContext();
+            await semaphore.WaitAsync(cancellationToken).WithoutCapturingContext();
             return new SemaphoreSlimReleaser(semaphore);
         }
 
-        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, int millisecondsTimeout, CancellationToken cancellationToken = default)
+        public static async Task<IAsyncDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, int millisecondsTimeout, CancellationToken cancellationToken = default)
         {
-            semaphore.WaitAsync(millisecondsTimeout, cancellationToken).WithoutCapturingContext();
+            await semaphore.WaitAsync(millisecondsTimeout, cancellationToken).WithoutCapturingContext();
             return new SemaphoreSlimReleaser(semaphore);
         }
 
-        public static IAsyncDisposable WaitAndReleaseAsync(this SemaphoreSlim semaphore, TimeSpan timeout, CancellationToken cancellationToken = default)
+        public static async Task<IAsyncDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, TimeSpan timeout, CancellationToken cancellationToken = default)
         {
-            semaphore.WaitAsync(timeout, cancellationToken).WithoutCapturingContext();
+            await semaphore.WaitAsync(timeout, cancellationToken).WithoutCapturingContext();
             return new SemaphoreSlimReleaser(semaphore);
         }
 #endif
-        
+
         private class SemaphoreSlimReleaser :
 #if NETSTANDARD2_1_OR_GREATER
             AsyncDisposableBase
@@ -66,10 +66,10 @@ namespace Developist.Core.Utilities
             }
 
 #if NETSTANDARD2_1_OR_GREATER
-            protected override ValueTask ReleaseManagedResourcesAsync()
+            protected override async ValueTask ReleaseManagedResourcesAsync()
             {
                 semaphore.Release();
-                return base.ReleaseManagedResourcesAsync();
+                await base.ReleaseManagedResourcesAsync().WithoutCapturingContext();
             }
 #endif
         }
