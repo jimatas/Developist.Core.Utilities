@@ -6,7 +6,7 @@
     <Copyright>Copyright (c) $([System.DateTime]::Now.Year) $(Authors)</Copyright>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>2.5.0</Version>
+    <Version>3.0.0</Version>
     <Major>$(Version.Split('.')[0])</Major>
     <Minor>$(Version.Split('.')[1])</Minor>
     <Build>$([System.Math]::Floor($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse("01-01-2000"))).TotalDays)))</Build>
@@ -20,7 +20,7 @@
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <Description>A collection of generally useful utilities for use in .NET Framework and Core projects. Targets .NET Standard 2.0.</Description>
+    <Description>A collection of generally useful utilities for use in .NET Framework and Core projects. Targets .NET Standard 2.0/2.1.</Description>
     <PackageTags>utilities;precondition;guardclause</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
