@@ -82,10 +82,10 @@ namespace Developist.Core.Utilities
             }
 
 #if NETSTANDARD2_1_OR_GREATER
-            protected override async ValueTask ReleaseManagedResourcesAsync()
+            protected override ValueTask ReleaseManagedResourcesAsync()
             {
                 semaphore.Release();
-                await base.ReleaseManagedResourcesAsync().WithoutCapturingContext();
+                return base.ReleaseManagedResourcesAsync();
             }
 #endif
         }
