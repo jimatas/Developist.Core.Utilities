@@ -75,17 +75,17 @@ namespace Developist.Core.Utilities
             private readonly SemaphoreSlim semaphore;
             public SemaphoreSlimReleaser(SemaphoreSlim semaphore) => this.semaphore = semaphore;
 
+            protected override void ReleaseManagedResources()
+            {
+                semaphore.Release();
+                base.ReleaseManagedResources();
+            }
+
 #if NETSTANDARD2_1_OR_GREATER
             protected override async ValueTask ReleaseManagedResourcesAsync()
             {
                 semaphore.Release();
                 await base.ReleaseManagedResourcesAsync().WithoutCapturingContext();
-            }
-#else
-            protected override void ReleaseManagedResources()
-            {
-                semaphore.Release();
-                base.ReleaseManagedResources();
             }
 #endif
         }
