@@ -3,9 +3,7 @@
 
 using System;
 using System.Threading;
-#if NETSTANDARD2_1_OR_GREATER
 using System.Threading.Tasks;
-#endif
 
 namespace Developist.Core.Utilities
 {
@@ -47,6 +45,24 @@ namespace Developist.Core.Utilities
             await semaphore.WaitAsync(timeout, cancellationToken).WithoutCapturingContext();
             return new SemaphoreSlimReleaser(semaphore);
         }
+#else
+        public static async Task<IDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, CancellationToken cancellationToken = default)
+        {
+            await semaphore.WaitAsync(cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static async Task<IDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, int millisecondsTimeout, CancellationToken cancellationToken = default)
+        {
+            await semaphore.WaitAsync(millisecondsTimeout, cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
+
+        public static async Task<IDisposable> WaitAndReleaseAsync(this SemaphoreSlim semaphore, TimeSpan timeout, CancellationToken cancellationToken = default)
+        {
+            await semaphore.WaitAsync(timeout, cancellationToken).WithoutCapturingContext();
+            return new SemaphoreSlimReleaser(semaphore);
+        }
 #endif
 
         private class SemaphoreSlimReleaser
@@ -59,17 +75,17 @@ namespace Developist.Core.Utilities
             private readonly SemaphoreSlim semaphore;
             public SemaphoreSlimReleaser(SemaphoreSlim semaphore) => this.semaphore = semaphore;
 
-            protected override void ReleaseManagedResources()
-            {
-                semaphore.Release();
-                base.ReleaseManagedResources();
-            }
-
 #if NETSTANDARD2_1_OR_GREATER
             protected override async ValueTask ReleaseManagedResourcesAsync()
             {
                 semaphore.Release();
                 await base.ReleaseManagedResourcesAsync().WithoutCapturingContext();
+            }
+#else
+            protected override void ReleaseManagedResources()
+            {
+                semaphore.Release();
+                base.ReleaseManagedResources();
             }
 #endif
         }
