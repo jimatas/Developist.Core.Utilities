@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31205.134
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BD5340AA-B0A9-4D0C-9928-E1388991729E}"
-	ProjectSection(SolutionItems) = preProject
-		Developist.Core.Utilities.sln.licenseheader = Developist.Core.Utilities.sln.licenseheader
-		Directory.Build.props = Directory.Build.props
-		License.txt = License.txt
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Developist.Core.ArgumentValidation", "src\Developist.Core.ArgumentValidation\Developist.Core.ArgumentValidation.csproj", "{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Developist.Core.Utilities", "Developist.Core.Utilities\Developist.Core.Utilities.csproj", "{E21B0F16-8C55-4CE8-A573-C36588BAC961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Developist.Core.ArgumentValidation.Tests", "test\Developist.Core.ArgumentValidation.Tests\Developist.Core.ArgumentValidation.Tests.csproj", "{58E83DD0-5B60-4679-9B83-4138BFA20599}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Developist.Core.Utilities.Tests", "Developist.Core.Utilities.Tests\Developist.Core.Utilities.Tests.csproj", "{D8330090-5839-4A0E-ADB9-0AEEB27A0D6F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D5AD8339-5948-4A59-B8B3-B27A57CD1B39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E201BA2A-83D3-4343-BA94-1E36B5B245F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,17 +17,21 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E21B0F16-8C55-4CE8-A573-C36588BAC961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E21B0F16-8C55-4CE8-A573-C36588BAC961}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E21B0F16-8C55-4CE8-A573-C36588BAC961}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E21B0F16-8C55-4CE8-A573-C36588BAC961}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8330090-5839-4A0E-ADB9-0AEEB27A0D6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8330090-5839-4A0E-ADB9-0AEEB27A0D6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8330090-5839-4A0E-ADB9-0AEEB27A0D6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8330090-5839-4A0E-ADB9-0AEEB27A0D6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E83DD0-5B60-4679-9B83-4138BFA20599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E83DD0-5B60-4679-9B83-4138BFA20599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E83DD0-5B60-4679-9B83-4138BFA20599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E83DD0-5B60-4679-9B83-4138BFA20599}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D2BB13CE-3052-48AF-B9E4-0F360BF79B9D} = {D5AD8339-5948-4A59-B8B3-B27A57CD1B39}
+		{58E83DD0-5B60-4679-9B83-4138BFA20599} = {E201BA2A-83D3-4343-BA94-1E36B5B245F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDEF22A3-CCB4-44BE-BF28-964861F37BD4}
