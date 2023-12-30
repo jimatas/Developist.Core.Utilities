@@ -24,7 +24,7 @@ public static class EnsureArgumentExtensions
     /// <summary>
     /// Ensures that the provided string is not <see langword="null"/> or empty.
     /// </summary>
-    /// <param name="ensureArgument">The extension method placeholder.</param>
+    /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance to extend.</param>
     /// <param name="value">The string to check.</param>
     /// <param name="paramName">The name of the parameter to check. This is automatically provided.</param>
     /// <returns>The non-null and non-empty string.</returns>
@@ -47,7 +47,7 @@ public static class EnsureArgumentExtensions
     /// <summary>
     /// Ensures that the provided nullable Guid value is not <see langword="null"/> and not an empty Guid.
     /// </summary>
-    /// <param name="ensureArgument">The extension method placeholder.</param>
+    /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance to extend.</param>
     /// <param name="value">The nullable Guid value to check.</param>
     /// <param name="paramName">The name of the parameter to check. This is automatically provided.</param>
     /// <returns>The non-null and non-empty Guid value.</returns>
@@ -60,6 +60,21 @@ public static class EnsureArgumentExtensions
     {
         ensureArgument.NotNull(value, paramName);
 
+        return ensureArgument.NotEmpty((Guid)value, paramName);
+    }
+
+    /// <summary>
+    /// Ensures that the provided Guid value is not an empty Guid (all zeros).
+    /// </summary>
+    /// <param name="_">The extension method placeholder, not used.</param>
+    /// <param name="value">The <see cref="Guid"/> value to check.</param>
+    /// <param name="paramName">The name of the parameter to check. This is automatically provided.</param>
+    /// <returns>The non-empty Guid value.</returns>
+    /// <exception cref="ArgumentException">Thrown when the value is an all-zero Guid.</exception>
+    public static Guid NotEmpty(this IEnsureArgument _,
+        Guid value,
+        [CallerArgumentExpression("value")] string? paramName = default)
+    {
         if (value.Equals(Guid.Empty))
         {
             throw new ArgumentException(message: "Value cannot be an all-zero GUID.", paramName);
@@ -72,7 +87,7 @@ public static class EnsureArgumentExtensions
     /// Ensures that the provided enumerable is not <see langword="null"/> and contains at least one element.
     /// </summary>
     /// <typeparam name="T">The type of elements in the enumerable.</typeparam>
-    /// <param name="ensureArgument">The extension method placeholder.</param>
+    /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance to extend.</param>
     /// <param name="value">The enumerable to check.</param>
     /// <param name="paramName">The name of the parameter to check. This is automatically provided.</param>
     /// <returns>The non-null and non-empty enumerable.</returns>
@@ -95,7 +110,7 @@ public static class EnsureArgumentExtensions
     /// <summary>
     /// Ensures that the provided string is not <see langword="null"/>, empty, or consists only of whitespace characters.
     /// </summary>
-    /// <param name="ensureArgument">The extension method placeholder.</param>
+    /// <param name="ensureArgument">The <see cref="IEnsureArgument"/> instance to extend.</param>
     /// <param name="value">The string to check.</param>
     /// <param name="paramName">The name of the parameter to check. This is automatically provided.</param>
     /// <returns>The non-null, non-empty, and non-whitespace string.</returns>

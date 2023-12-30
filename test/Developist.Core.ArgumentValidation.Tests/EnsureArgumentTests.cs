@@ -81,7 +81,7 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith("Value cannot be an empty string."));
+        StringAssert.StartsWith(exception.Message, "Value cannot be an empty string.");
     }
 
     [TestMethod]
@@ -123,7 +123,35 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith("Value cannot be an all-zero GUID."));
+        StringAssert.StartsWith(exception.Message, "Value cannot be an all-zero GUID.");
+    }
+
+    [TestMethod]
+    public void NotEmpty_GivenNonEmptyGuid_ReturnsGuid()
+    {
+        // Arrange
+        var value = Guid.NewGuid();
+
+        // Act
+        var returnedValue = Ensure.Argument.NotEmpty(value);
+
+        // Assert
+        Assert.AreEqual(value, returnedValue);
+    }
+
+    [TestMethod]
+    public void NotEmpty_GivenEmptyGuid_ThrowsArgumentException()
+    {
+        // Arrange
+        var value = Guid.Empty;
+
+        // Act
+        void action() => Ensure.Argument.NotEmpty(value);
+
+        // Assert
+        var exception = Assert.ThrowsException<ArgumentException>(action);
+        Assert.AreEqual(nameof(value), exception.ParamName);
+        StringAssert.StartsWith(exception.Message, "Value cannot be an all-zero GUID.");
     }
 
     [TestMethod]
@@ -166,7 +194,7 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith("Collection must contain at least one element."));
+        StringAssert.StartsWith(exception.Message, "Collection must contain at least one element.");
     }
 
     [TestMethod]
@@ -209,7 +237,7 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith("Value cannot be an empty string."));
+        StringAssert.StartsWith(exception.Message, "Value cannot be an empty string.");
     }
 
     [TestMethod]
@@ -224,7 +252,7 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith("Value cannot be composed entirely of whitespace."));
+        StringAssert.StartsWith(exception.Message, "Value cannot be composed entirely of whitespace.");
     }
 
     [DataTestMethod]
@@ -255,36 +283,38 @@ public class EnsureArgumentTests
         Assert.AreEqual(value, returnedValue);
     }
 
-    [TestMethod]
-    public void NotOutOfRange_GivenValueLessThanMinValue_ThrowsArgumentOutOfRangeException()
+    [DataTestMethod]
+    [DataRow(-1, 0)]
+    [DataRow(0.5, 1.0)]
+    [DataRow(10.49, 10.5)]
+    public void NotOutOfRange_GivenValueLessThanMinValue_ThrowsArgumentOutOfRangeException(double value, double minValue)
     {
         // Arrange
-        const int value = -1;
-        const int minValue = 0;
 
         // Act
-        static void action() => Ensure.Argument.NotOutOfRange(value, minValue: minValue);
+        void action() => Ensure.Argument.NotOutOfRange(value, minValue);
 
         // Assert
         var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith($"Value must be greater than or equal to {minValue}."));
+        StringAssert.StartsWith(exception.Message, $"Value must be greater than or equal to {minValue}.");
     }
 
-    [TestMethod]
-    public void NotOutOfRange_GivenValueGreaterThanMaxValue_ThrowsArgumentOutOfRangeException()
+    [DataTestMethod]
+    [DataRow(6, 5)]
+    [DataRow(1.0, 0.5)]
+    [DataRow(10.5, 10.49)]
+    public void NotOutOfRange_GivenValueGreaterThanMaxValue_ThrowsArgumentOutOfRangeException(double value, double maxValue)
     {
         // Arrange
-        const int value = 6;
-        const int maxValue = 5;
 
         // Act
-        static void action() => Ensure.Argument.NotOutOfRange(value, maxValue: maxValue);
+        void action() => Ensure.Argument.NotOutOfRange(value, maxValue: maxValue);
 
         // Assert
         var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith($"Value must be less than or equal to {maxValue}."));
+        StringAssert.StartsWith(exception.Message, $"Value must be less than or equal to {maxValue}.");
     }
 
     [DataTestMethod]
@@ -300,7 +330,7 @@ public class EnsureArgumentTests
         // Assert
         var exception = Assert.ThrowsException<ArgumentOutOfRangeException>(action);
         Assert.AreEqual(nameof(value), exception.ParamName);
-        Assert.IsTrue(exception.Message.StartsWith($"Value must be between {minValue} and {maxValue}, inclusive."));
+        StringAssert.StartsWith(exception.Message, $"Value must be between {minValue} and {maxValue}, inclusive.");
     }
 
     [TestMethod]
